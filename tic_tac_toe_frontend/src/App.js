@@ -40,7 +40,7 @@ function StatusBar({ status, winner }) {
 function RestartButton({ onClick }) {
   return (
     <button className="ttt-restart-btn" onClick={onClick}>
-      Restart Game
+      Restart Game!!!
     </button>
   );
 }
