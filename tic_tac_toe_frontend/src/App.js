@@ -72,6 +72,47 @@ function calculateWinner(squares) {
   return null;
 }
 
+/**
+ * Difficulty selector component
+ */
+function DifficultySelector({ value, onChange }) {
+  return (
+    <div style={{
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "1em",
+      marginBottom: "0.65em"
+    }}>
+      <label htmlFor="difficulty-select" style={{ fontWeight: 500, color: "var(--primary)", fontSize: "1.08rem" }}>
+        Difficulty:
+      </label>
+      <select
+        id="difficulty-select"
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        style={{
+          padding: "0.4em 1.1em",
+          borderRadius: "7px",
+          border: "1.5px solid var(--border-color, #e9ecef)",
+          fontSize: "1rem",
+          fontWeight: 500,
+          color: "var(--secondary)",
+          backgroundColor: "#fff",
+          cursor: "pointer",
+          outline: "none"
+        }}
+        aria-label="Select AI Difficulty"
+      >
+        <option value="Easy">Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Hard">Hard</option>
+      </select>
+    </div>
+  );
+}
+
 // PUBLIC_INTERFACE
 function App() {
   // "X" always starts
@@ -80,6 +121,8 @@ function App() {
   const [winnerInfo, setWinnerInfo] = useState(null);
   const [isDraw, setIsDraw] = useState(false);
   const [theme, setTheme] = useState("light");
+  // Added for difficulty selector
+  const [difficulty, setDifficulty] = useState("Easy");
 
   // Effect to update winner info and check for draw after move
   useEffect(() => {
@@ -143,6 +186,7 @@ function App() {
           </button>
         </nav>
         <main className="ttt-container">
+          <DifficultySelector value={difficulty} onChange={setDifficulty} />
           <StatusBar status={getStatus()} winner={winnerInfo?.winner} />
           <Board
             squares={squares}
@@ -150,6 +194,25 @@ function App() {
             disabled={!!winnerInfo || isDraw}
           />
           <RestartButton onClick={handleRestart} />
+          {/* Placeholder for future: AI difficulty logic */}
+          <div style={{
+            marginTop: "1.2em",
+            background: "#fffbe7",
+            border: "1px solid #ffe082",
+            borderRadius: "8px",
+            color: "#c86914",
+            padding: "0.7em 1em",
+            fontSize: "1rem",
+            fontWeight: 500,
+            maxWidth: "96%",
+            marginLeft: "auto",
+            marginRight: "auto"
+          }}>
+            <span>
+              <b>Note:</b> Difficulty mode (<span style={{textTransform:'capitalize'}}>{difficulty}</span>) is selected.<br/>
+              The game is currently player vs player. AI opponent logic per difficulty will be added soon.
+            </span>
+          </div>
         </main>
         <footer className="ttt-footer">
           <span>
